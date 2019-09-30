@@ -3,7 +3,13 @@
 -- Model: New Model    Version: 1.0
 -- MySQL Workbench Forward Engineering
 
--- GIT TEST - Colin
+-- Notes 
+-- Do we need two tables for moves? It seems like the first move should be within the same data set as the second?
+
+-- I'm pretty confused on the best way to store the types, so I just put something simple together and sent an email to the TA. 
+-- I'll let you know when she gets back with me. 
+-- Also it doesn't work. :/
+
 
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
@@ -65,6 +71,24 @@ CREATE TABLE IF NOT EXISTS `Pokedex`.`Secondary_Moves` (
   UNIQUE INDEX `Name_UNIQUE` (`Name` ASC) VISIBLE)
 ENGINE = InnoDB;
 
+
+-- Check
+
+-- -----------------------------------------------------
+-- Table `Pokedex`.`type_matrix`
+-- Implementation of simple 
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `Pokedex`.`type_matrix` ;
+
+CREATE TABLE IF NOT EXISTS `Pokedex`.`type_matrix` (
+	`index` INT NOT NULL UNIQUE AUTO_INCREMENT,
+	`attack_type` VARCHAR,
+	`defense_type` VARCHAR,
+	`damage_mod` FLOAT,
+	PRIMARY KEY (`index`)
+) ENGINE=InnoDB;
+
+-- /Check
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

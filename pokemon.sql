@@ -3,12 +3,17 @@
 -- Model: New Model    Version: 1.0
 -- MySQL Workbench Forward Engineering
 
--- Notes 
--- Do we need two tables for moves? It seems like the first move should be within the same data set as the second?
 
--- I'm pretty confused on the best way to store the types, so I just put something simple together and sent an email to the TA. 
--- I'll let you know when she gets back with me. 
--- Also it doesn't work. :/
+-- Proposed Project DB Layout
+
+-- Table 1 
+-- Pokemon: Stats with moveset foriegn key (Moveset)
+
+-- Table 2 
+-- All Pokemon moves with primary key 
+
+-- Table 3 
+-- Moveset table correlating moves with pokemon key. 
 
 
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;

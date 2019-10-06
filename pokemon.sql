@@ -10,58 +10,52 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema Pokedex
 -- -----------------------------------------------------
-
--- -----------------------------------------------------
--- Schema Pokedex
--- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `Pokedex` ;
 USE `Pokedex` ;
 
 -- -----------------------------------------------------
 -- Table `Pokedex`.`Pokemon`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Pokedex`.`Pokemon` ;
+DROP TABLE IF EXISTS `Pokedex`.`pokemon` ;
 
-CREATE TABLE IF NOT EXISTS `Pokedex`.`Pokemon` (
-  `Number` INT NOT NULL AUTO_INCREMENT,
-  `Name` VARCHAR(45) NULL,
-  `Type` VARCHAR(45) NULL,
-  `HP` INT NULL DEFAULT 0,
-  `Attack` INT NULL DEFAULT 0,
-  `Defense` INT NULL DEFAULT 0,
-  `Primary_Attack` VARCHAR(45) NULL,
-  `Secondary_Attack` VARCHAR(45) NULL,
-  UNIQUE INDEX `Name_UNIQUE` (`Name` ASC) VISIBLE,
-  UNIQUE INDEX `Number_UNIQUE` (`Number` ASC) VISIBLE)
+CREATE TABLE IF NOT EXISTS `Pokedex`.`pokemon` (
+  `number` INT NOT NULL AUTO_INCREMENT PRIMARY KEY UNIQUE,
+  `name` VARCHAR(45) NULL,
+  `type` VARCHAR(45) NULL,
+  `hp` INT NULL DEFAULT 0,
+  `attack` INT NULL DEFAULT 0,
+  `defense` INT NULL DEFAULT 0)
+ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Table `Pokedex`.`Attack`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `Pokedex`.`attack` ;
+
+CREATE TABLE IF NOT EXISTS `Pokedex`.`attack` (
+  `name` VARCHAR(45) NOT NULL PRIMARY KEY UNIQUE,
+  `type` VARCHAR(45) NULL,
+  `damage` VARCHAR(45) NULL)
+ENGINE = InnoDB;
+-- -----------------------------------------------------
+-- Table `Pokedex`.`Moveset`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `Pokedex`.`moveset` ;
+
+CREATE TABLE IF NOT EXISTS `Pokedex`.`moveset` (
+  `number` INT NOT NULL AUTO_INCREMENT PRIMARY KEY UNIQUE,
+  `primary_attack` VARCHAR(45) NULL,
+  `secondary_attack` VARCHAR(45) NULL,
+  CONSTRAINT moveset_fk_pattack
+    FOREIGN KEY (primary_attack)
+    REFERENCES attack (name),
+  CONSTRAINT moveset_fk_sattack
+    FOREIGN KEY (secondary_attack)
+    REFERENCES attack (name))
 ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `Pokedex`.`Primary_Moves`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `Pokedex`.`Primary_Moves` ;
 
-CREATE TABLE IF NOT EXISTS `Pokedex`.`Primary_Moves` (
-  `Name` VARCHAR(45) NOT NULL,
-  `Type` VARCHAR(45) NULL,
-  `Damage` INT NULL,
-  PRIMARY KEY (`Name`),
-  UNIQUE INDEX `Name_UNIQUE` (`Name` ASC) VISIBLE)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `Pokedex`.`Secondary_Moves`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `Pokedex`.`Secondary_Moves` ;
-
-CREATE TABLE IF NOT EXISTS `Pokedex`.`Secondary_Moves` (
-  `Name` INT NOT NULL,
-  `Type` VARCHAR(45) NULL,
-  `Damage` VARCHAR(45) NULL,
-  PRIMARY KEY (`Name`),
-  UNIQUE INDEX `Name_UNIQUE` (`Name` ASC) VISIBLE)
-ENGINE = InnoDB;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

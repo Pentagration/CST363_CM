@@ -8,17 +8,17 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
--- Schema Pokedex
+-- Schema pokedex
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `Pokedex` ;
-USE `Pokedex` ;
+CREATE SCHEMA IF NOT EXISTS `pokedex` ;
+USE `pokedex` ;
 
 -- -----------------------------------------------------
--- Table `Pokedex`.`Pokemon`
+-- Table `pokedex`.`Pokemon`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Pokedex`.`pokemon` ;
+DROP TABLE IF EXISTS `pokedex`.`pokemon` ;
 
-CREATE TABLE IF NOT EXISTS `Pokedex`.`pokemon` (
+CREATE TABLE IF NOT EXISTS `pokedex`.`pokemon` (
   `number` INT NOT NULL AUTO_INCREMENT PRIMARY KEY UNIQUE,
   `name` VARCHAR(45) NULL,
   `type` VARCHAR(45) NULL,
@@ -28,36 +28,30 @@ CREATE TABLE IF NOT EXISTS `Pokedex`.`pokemon` (
 ENGINE = InnoDB;
 
 -- -----------------------------------------------------
--- Table `Pokedex`.`Attack`
+-- Table `pokedex`.`Attack`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Pokedex`.`attack` ;
+DROP TABLE IF EXISTS `pokedex`.`attack` ;
 
-CREATE TABLE IF NOT EXISTS `Pokedex`.`attack` (
+CREATE TABLE IF NOT EXISTS `pokedex`.`attack` (
   `name` VARCHAR(45) NOT NULL PRIMARY KEY UNIQUE,
   `type` VARCHAR(45) NULL,
   `damage` VARCHAR(45) NULL)
 ENGINE = InnoDB;
 -- -----------------------------------------------------
--- Table `Pokedex`.`Moveset`
+-- Table `pokedex`.`Moveset`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Pokedex`.`moveset` ;
+DROP TABLE IF EXISTS `pokedex`.`moveset` ;
 
-CREATE TABLE IF NOT EXISTS `Pokedex`.`moveset` (
+CREATE TABLE IF NOT EXISTS `pokedex`.`moveset` (
   `number` INT NOT NULL AUTO_INCREMENT PRIMARY KEY UNIQUE,
   `primary_attack` VARCHAR(45) NULL,
   `secondary_attack` VARCHAR(45) NULL,
   CONSTRAINT moveset_fk_pattack
     FOREIGN KEY (primary_attack)
-    REFERENCES attack (name),
+    REFERENCES attack (name)
+    ON DELETE SET NULL ON UPDATE SET NULL,
   CONSTRAINT moveset_fk_sattack
     FOREIGN KEY (secondary_attack)
-    REFERENCES attack (name))
+    REFERENCES attack (name)
+    ON DELETE SET NULL ON UPDATE SET NULL)
 ENGINE = InnoDB;
-
-
-
-
-
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

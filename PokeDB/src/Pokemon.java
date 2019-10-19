@@ -31,6 +31,10 @@ public class Pokemon extends HttpServlet {
 			// get input data from form
 			String name = request.getParameter("name");
 			String type = request.getParameter("type");
+			String param1 = request.getPrarameter("param1");
+			String param2 = request.getPrarameter("param2");
+			String param3 = request.getPrarameter("param3");
+
 			if (name.length() > 0)
 			{
 				String sql = "SELECT p.name, p.type, p.hp, p.attack, p.defense, m.primary_attack, m.secondary_attack\n" + 
@@ -103,7 +107,91 @@ public class Pokemon extends HttpServlet {
 				out.println("</table>");
 				out.println("</body></html>");
 			}
+
+			else if (param1.length() > 0)
+			{
+				String sql = ""
+				PreparedStatement pstmt = conn.prepareStatement(sql);
+				pstmt.setstring(1,param1);
+				ResultSet rs = pstmt.executeQuery();
+				
+				out.println("<!DOCTYPE HTML><html><body>");
+				out.println("<img src=\"Pokemon.jpeg\" height=\"137\" width=\"368\" />");
+				out.println("<table border = \"1\" width = \"100%\">");
+				out.println("<col style = \"width:14%\"> <col style = \"width:14%\"> <col style = \"width:14%\">");
+				//out.println("<thead><tr><th>Name</th><th>Primary Attack</th><th>Secondary Attack</th></tr></thead>");
+				while (rs.next())
+				{
+					out.println("<tbody><tr>");
+					//out.println("<td>" + rs.getString("name") + "</td>");
+					//out.println("<td>" + rs.getString("primary_attack") + "</td>");
+					//out.println("<td>" + rs.getString("secondary_attack") + "</td>");
+					out.println("</tr><tbody>");
+				}
+				rs.close();
+				out.println("</table>");
+				out.println("</body></html>");
+			}
 			
+			else if (param2.length() > 0)
+			{
+				String sql = ""
+				PreparedStatement pstmt = conn.prepareStatement(sql);
+				pstmt.setstring(1,param1);
+				ResultSet rs = pstmt.executeQuery();
+				
+				out.println("<!DOCTYPE HTML><html><body>");
+				out.println("<img src=\"Pokemon.jpeg\" height=\"137\" width=\"368\" />");
+				out.println("<table border = \"1\" width = \"100%\">");
+				out.println("<col style = \"width:14%\"> <col style = \"width:14%\"> <col style = \"width:14%\">");
+				//out.println("<thead><tr><th>Name</th><th>Primary Attack</th><th>Secondary Attack</th></tr></thead>");
+				while (rs.next())
+				{
+					out.println("<tbody><tr>");
+					//out.println("<td>" + rs.getString("name") + "</td>");
+					//out.println("<td>" + rs.getString("primary_attack") + "</td>");
+					//out.println("<td>" + rs.getString("secondary_attack") + "</td>");
+					out.println("</tr><tbody>");
+				}
+				rs.close();
+				out.println("</table>");
+				out.println("</body></html>");
+			}
+
+			else if (param3.length() > 0)
+			{
+				String sql = ""
+				PreparedStatement pstmt = conn.prepareStatement(sql);
+				pstmt.setstring(1,param1);
+				ResultSet rs = pstmt.executeQuery();
+				
+				out.println("<!DOCTYPE HTML><html><body>");
+				out.println("<img src=\"Pokemon.jpeg\" height=\"137\" width=\"368\" />");
+				out.println("<table border = \"1\" width = \"100%\">");
+				out.println("<col style = \"width:14%\"> <col style = \"width:14%\"> <col style = \"width:14%\">");
+				//out.println("<thead><tr><th>Name</th><th>Primary Attack</th><th>Secondary Attack</th></tr></thead>");
+				while (rs.next())
+				{
+					out.println("<tbody><tr>");
+					//out.println("<td>" + rs.getString("name") + "</td>");
+					//out.println("<td>" + rs.getString("primary_attack") + "</td>");
+					//out.println("<td>" + rs.getString("secondary_attack") + "</td>");
+					out.println("</tr><tbody>");
+				}
+				rs.close();
+				out.println("</table>");
+				out.println("</body></html>");
+			}
+
+			else 
+			{
+				out.println("<!DOCTYPE HTML><html><body>");
+				out.println("<img src=\"Pokemon.jpeg\" height=\"137\" width=\"368\" />");
+				out.println("<H1>NO CONTENT TO DISPLAY<H1>");
+				out.println("</table>");
+				out.println("</body></html>");
+			}
+
 		} catch (SQLException e) {
 			// Handle errors
 			e.printStackTrace();

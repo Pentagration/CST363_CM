@@ -111,15 +111,22 @@ public class Pokemon extends HttpServlet {
 			else if (attack.length() > 0)
 			{
 				String sql = "SELECT t1.primary_attack AS attack, t1.count AS primary_attack_count, t2.count AS secondary_attack_count\n" +
-							"    FROM\n" +
-							"        (SELECT\n" +
-							"            secondary_attack, COUNT(*) AS count\n" +
-							"        FROM\n"
-							"            pokedex.moveset\n" +
-							"        GROUP BY secondary_attack\n"
-							"        ORDER BY COUNT(*) DESC) t2\n"
-							"        ON t1.primary_attack = t2.secondary_attack\n" +
-							"        WHERE t1.primary_attack = ?"
+							"   FROM\n" +
+							"       (SELECT\n" +
+							"           primary_attack, COUNT(*) AS count\n" +
+							"       FROM\n" +
+							"           pokedex.moveset\n" +
+							"       GROUP BY primary_attack\n" +
+							"       ORDER BY COUNT(*) DESC) t1\n" +
+							"           JOIN\n" +
+							"       (SELECT\n" +
+							"           secondary_attack, COUNT(*) AS count\n" +
+							"       FROM\n" +
+							"           pokedex.moveset\n" +
+							"       GROUP BY secondary_attack\n" +
+							"       ORDER BY COUNT(*) DESC) t2\n" +
+							"       ON t1.primary_attack = t2.secondary_attack\n" +
+							"       WHERE t1.primary_attack = ?" 
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 				pstmt.setstring(1,attack);
 				ResultSet rs = pstmt.executeQuery();

@@ -63,7 +63,7 @@ WHERE poke.number = move.number
 HAVING poke.defense > 85 AND poke.defense < 90;
 
 
-CREATE VIEW pokemon_data AS
+CREATE VIEW pokedex.pokemon_data AS
     SELECT 
         t1.number,
         p.name,
@@ -91,4 +91,4 @@ CREATE VIEW pokemon_data AS
         JOIN pokedex.attack a ON m.secondary_attack = a.name) t2 ON t1.number = t2.number
             JOIN
         pokedex.pokemon p ON t1.number = p.number
-    ORDER BY t1.number;
+    ORDER BY t1.number

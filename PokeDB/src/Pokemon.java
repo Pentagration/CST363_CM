@@ -31,7 +31,7 @@ public class Pokemon extends HttpServlet {
 			// get input data from form
 			String name = request.getParameter("name");
 			String type = request.getParameter("type");
-			String param1 = request.getPrarameter("param1");
+			String attack = request.getPrarameter("attack");
 			String param2 = request.getPrarameter("param2");
 			String param3 = request.getPrarameter("param3");
 
@@ -108,7 +108,7 @@ public class Pokemon extends HttpServlet {
 				out.println("</body></html>");
 			}
 
-			else if (param1.length() > 0)
+			else if (attack.length() > 0)
 			{
 				String sql = "SELECT t1.primary_attack AS attack, t1.count AS primary_attack_count, t2.count AS secondary_attack_count\n" +
 							"    FROM\n" +
@@ -121,7 +121,7 @@ public class Pokemon extends HttpServlet {
 							"        ON t1.primary_attack = t2.secondary_attack\n" +
 							"        WHERE t1.primary_attack = ?"
 				PreparedStatement pstmt = conn.prepareStatement(sql);
-				pstmt.setstring(1,param1);
+				pstmt.setstring(1,attack);
 				ResultSet rs = pstmt.executeQuery();
 				
 				out.println("<!DOCTYPE HTML><html><body>");
@@ -144,7 +144,7 @@ public class Pokemon extends HttpServlet {
 			{
 				String sql = ""
 				PreparedStatement pstmt = conn.prepareStatement(sql);
-				pstmt.setstring(1,param1);
+				pstmt.setstring(1,attack);
 				ResultSet rs = pstmt.executeQuery();
 				
 				out.println("<!DOCTYPE HTML><html><body>");
@@ -169,7 +169,7 @@ public class Pokemon extends HttpServlet {
 			{
 				String sql = ""
 				PreparedStatement pstmt = conn.prepareStatement(sql);
-				pstmt.setstring(1,param1);
+				pstmt.setstring(1,param3);
 				ResultSet rs = pstmt.executeQuery();
 				
 				out.println("<!DOCTYPE HTML><html><body>");

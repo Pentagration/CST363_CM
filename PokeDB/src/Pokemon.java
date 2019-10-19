@@ -31,9 +31,9 @@ public class Pokemon extends HttpServlet {
 			// get input data from form
 			String name = request.getParameter("name");
 			String type = request.getParameter("type");
-			String attack = request.getPrarameter("attack");
-			String param2 = request.getPrarameter("param2");
-			String param3 = request.getPrarameter("param3");
+			String attack = request.getParameter("attack");
+			String param2 = request.getParameter("param2");
+			String param3 = request.getParameter("param3");
 
 			if (name.length() > 0)
 			{
@@ -193,15 +193,6 @@ public class Pokemon extends HttpServlet {
 					out.println("</tr><tbody>");
 				}
 				rs.close();
-				out.println("</table>");
-				out.println("</body></html>");
-			}
-
-			else 
-			{
-				out.println("<!DOCTYPE HTML><html><body>");
-				out.println("<img src=\"Pokemon.jpeg\" height=\"137\" width=\"368\" />");
-				out.println("<H1>NO CONTENT TO DISPLAY<H1>");
 				out.println("</table>");
 				out.println("</body></html>");
 			}

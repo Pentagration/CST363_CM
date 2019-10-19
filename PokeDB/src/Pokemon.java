@@ -110,7 +110,16 @@ public class Pokemon extends HttpServlet {
 
 			else if (param1.length() > 0)
 			{
-				String sql = ""
+				String sql = "SELECT t1.primary_attack AS attack, t1.count AS primary_attack_count, t2.count AS secondary_attack_count\n" +
+							"    FROM\n" +
+							"        (SELECT\n" +
+							"            secondary_attack, COUNT(*) AS count\n" +
+							"        FROM\n"
+							"            pokedex.moveset\n" +
+							"        GROUP BY secondary_attack\n"
+							"        ORDER BY COUNT(*) DESC) t2\n"
+							"        ON t1.primary_attack = t2.secondary_attack\n" +
+							"        WHERE t1.primary_attack = ?"
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 				pstmt.setstring(1,param1);
 				ResultSet rs = pstmt.executeQuery();
@@ -119,15 +128,13 @@ public class Pokemon extends HttpServlet {
 				out.println("<img src=\"Pokemon.jpeg\" height=\"137\" width=\"368\" />");
 				out.println("<table border = \"1\" width = \"100%\">");
 				out.println("<col style = \"width:14%\"> <col style = \"width:14%\"> <col style = \"width:14%\">");
-				//out.println("<thead><tr><th>Name</th><th>Primary Attack</th><th>Secondary Attack</th></tr></thead>");
-				while (rs.next())
-				{
-					out.println("<tbody><tr>");
-					//out.println("<td>" + rs.getString("name") + "</td>");
-					//out.println("<td>" + rs.getString("primary_attack") + "</td>");
-					//out.println("<td>" + rs.getString("secondary_attack") + "</td>");
-					out.println("</tr><tbody>");
-				}
+				out.println("<thead><tr><th>Attack</th><th>Primary Count</th><th>Secondary Count</th></tr></thead>");
+				out.println("<tbody><tr>");
+				out.println("<td>" + rs.getString("attack") + "</td>");
+				out.println("<td>" + rs.getString("primary_attack_count") + "</td>");
+				out.println("<td>" + rs.getString("secondary_attack_count") + "</td>");
+				out.println("</tr><tbody>");
+				
 				rs.close();
 				out.println("</table>");
 				out.println("</body></html>");

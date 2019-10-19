@@ -69,7 +69,7 @@ FROM pokemon poke JOIN moveset move
 WHERE poke.number = move.number 
 HAVING poke.attack > 85 AND poke.attack < 90;
 
-
+--Creates a view that provides information for all pokemon across all 3 tables
 CREATE VIEW pokedex.pokemon_data AS
     SELECT 
         t1.number,

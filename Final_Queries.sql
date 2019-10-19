@@ -56,11 +56,18 @@ ORDER BY poke.name asc;
 
         
 -- Description
--- Finds Pokemon with attack and defense over set value. In this case 85 and 90
+-- Finds Pokemon with defense over set value. In this case 85 and 90
 SELECT poke.name, poke.defense, poke.attack
 FROM pokemon poke JOIN moveset move
 WHERE poke.number = move.number
-HAVING poke.defense > 85 AND poke.defense < 90;
+HAVING poke.defense > 85 AND poke.defense < 90 
+
+UNION
+
+SELECT poke.name, poke.defense, poke.attack
+FROM pokemon poke JOIN moveset move
+WHERE poke.number = move.number 
+HAVING poke.attack > 85 AND poke.attack < 90;
 
 
 CREATE VIEW pokedex.pokemon_data AS

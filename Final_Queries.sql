@@ -56,7 +56,7 @@ ORDER BY poke.name asc;
 
         
 -- Description
--- Finds Pokemon with defense over set value. In this case 85 and 90
+-- Finds Pokemon with attack defense within set bounds. In this case 85 and 90
 SELECT poke.name, poke.defense, poke.attack
 FROM pokemon poke JOIN moveset move
 WHERE poke.number = move.number

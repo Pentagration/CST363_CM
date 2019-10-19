@@ -59,3 +59,33 @@ SELECT p.name, m.primary_attack, m.secondary_attack
 			(SELECT name
 			FROM pokedex.attack
 			WHERE type = "Grass");
+
+CREATE VIEW pokemon_data AS
+    SELECT 
+        t1.number,
+        p.name,
+        p.type,
+        p.hp,
+        p.attack,
+        p.defense,
+        t1.primary_attack,
+        t1.type,
+        t1.damage,
+        t2.secondary_attack,
+        t2.type,
+        t2.damage
+    FROM
+        (SELECT 
+            m.number, m.primary_attack, a.type, a.damage
+        FROM
+            pokedex.moveset m
+        JOIN pokedex.attack a ON m.primary_attack = a.name) t1
+            JOIN
+        (SELECT 
+            m.number, m.secondary_attack, a.type, a.damage
+        FROM
+            pokedex.moveset m
+        JOIN pokedex.attack a ON m.secondary_attack = a.name) t2 ON t1.number = t2.number
+            JOIN
+        pokedex.pokemon p ON t1.number = p.number
+    ORDER BY t1.number;
